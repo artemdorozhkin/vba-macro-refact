@@ -1,0 +1,24 @@
+VERSION 1.0 CLASS
+BEGIN
+  MultiUse = -1  'True
+END
+Attribute VB_Name = "Лист1"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = True
+Option Explicit
+
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+    If Target.Address = "$B$1" Then
+        With Application.FileDialog(msoFileDialogFilePicker)
+            .AllowMultiSelect = False
+            .ButtonName = "Выбрать"
+            .Show
+            If .SelectedItems.Count > 0 Then
+                Worksheets(1).Range("B1").Value = .SelectedItems.Item(1)
+                Cancel = True
+            End If
+        End With
+    End If
+End Sub
