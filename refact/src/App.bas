@@ -6,16 +6,22 @@ Option Explicit
 Public Sub Main()
     On Error GoTo Catch
 
+    #If DEV Then
+        MsgBox "Макрос запущен в режиме разработки.", vbInformation, "DEV MODE"
+    #End If
+
     Utils.DisableSettings
+
+    Dim Config As Config: Set Config = NewConfig(Constants.APP_NAME_ENG).SetSection("Settings")
 
     #If DEV Then
         Const FilePath As String = "C:\dev\projects\vba\refact\data.xlsx"
         Dim Kind As CollectorKind: Kind = CollectorKind.GT20
     #Else
         Dim FilePath As String
-        ' TODO: логика получения пути
+        FilePath = Config.GetValue(FormTags.FilePath, vbString)
         Dim Kind As CollectorKind
-        ' TODO: логика получения типа сборщика
+        Kind = CollectorTypes.GetCollectorKind(Config)
     #End If
 
     Dim Result As TCheckResult: Result = PathChecker.Validate(FilePath)

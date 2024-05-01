@@ -19,3 +19,15 @@ End Function
 Public Function NewDictionary() As Object
     Set NewDictionary = CreateObject("Scripting.Dictionary")
 End Function
+
+Public Function IsTextBox(ByVal Control As MSForms.Control) As Boolean
+    IsTextBox = TypeName(Control) = "TextBox"
+End Function
+
+Public Function IsOptionButton(ByVal Control As MSForms.Control) As Boolean
+    IsOptionButton = TypeName(Control) = "OptionButton"
+End Function
+
+Public Function IsBoolType(ByVal Value As Variant) As Boolean
+    IsBoolType = VarType(Value) = vbBoolean
+End Function
